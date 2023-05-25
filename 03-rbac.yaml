@@ -22,3 +22,27 @@ roleRef:
   kind: Role 
   name: roboshop-admin-role 
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+ metadata:
+  name: cluster-reader
+rules:
+- apiGroup: [**]
+  resources: ["nodes","namespaces"]
+  verbs: ["get","watch","list"]
+---
+apiVersion:
+kind: ClusterRoleBinding
+metadata:
+ name: cluster-reader-role-binding
+subjects:
+- kind: User
+  name: roboshop-admin
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+ kind: ClusterRole
+ name: cluster-reader
+ apiGroup: rbac.authorization.k8s.io
+ 
+
